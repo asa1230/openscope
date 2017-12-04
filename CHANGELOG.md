@@ -13,7 +13,7 @@
 
 
 ### Enhancements & Refactors
-
+- Updates documentation on airport file standards [#840](https://github.com/openscope/openscope/issues/840)
 
 
 

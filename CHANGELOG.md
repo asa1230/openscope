@@ -1,7 +1,7 @@
 ## 5.8.0 (January 1, 2018)
 ---
 ### New Features
-
+- Add Kansas City Int'l (KMCI) [#816](https://github.com/openscope/openscope/issues/816)
 
 
 

@@ -1,7 +1,7 @@
 ## 5.8.0 (January 1, 2018)
 ---
 ### New Features
-
+- Add Raleigh-Durham Int'l (KRDU) [#819](https://github.com/openscope/openscope/issues/819)
 
 
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import $ from 'jquery';
-import { time } from './utilities/timeHelpers';
+import TimeKeeper from './engine/TimeKeeper';
+import { INVALID_NUMBER } from './constants/globalConstants';
 import { SELECTORS } from './constants/selectors';
 
 /**
@@ -66,7 +67,7 @@ export default class LoadingView {
              * @property startTime
              * @type {number}
              */
-            startTime: -1
+            startTime: INVALID_NUMBER
         };
 
         this._setupChildren();
@@ -79,7 +80,7 @@ export default class LoadingView {
      * @private
      */
     _setupChildren() {
-        this.$element = $(SELECTORS.DOM_SELECTORS.LOADING);
+        this.$element = $(SELECTORS.DOM_SELECTORS.LOADING_VIEW);
         this.$loadingIndicator = $(SELECTORS.DOM_SELECTORS.LOADING_INDICATOR);
         this.$loadingMessage = this.$element.find(SELECTORS.DOM_SELECTORS.MESSAGE);
 
@@ -95,7 +96,7 @@ export default class LoadingView {
     _disable() {
         this.loadingState.callback = () => {};
         this.loadingState.loading = false;
-        this.loadingState.startTime = -1;
+        this.loadingState.startTime = INVALID_NUMBER;
 
         return this;
     }
@@ -126,9 +127,9 @@ export default class LoadingView {
      * @private
      */
     _didExceedMinimumWaitTime() {
-        const timeNow = time();
+        const timeNow = TimeKeeper.gameTimeInSeconds;
 
-        return (timeNow - this.loadingState.startTime) > MIN_DISPLAY_SECONDS;
+        return timeNow - this.loadingState.startTime > MIN_DISPLAY_SECONDS;
     }
 
     /**
@@ -156,7 +157,7 @@ export default class LoadingView {
     startLoad(url) {
         if (!this.loading) {
             this.$loadingIndicator.show();
-            this.loadingState.startTime = time();
+            this.loadingState.startTime = TimeKeeper.gameTimeInSeconds;
         }
 
         const msg = this._formatLoadingMessage(url);
@@ -170,7 +171,7 @@ export default class LoadingView {
      * @method stopLoad
      */
     stopLoad() {
-        const timeNow = time();
+        const timeNow = TimeKeeper.gameTimeInSeconds;
 
         if (this._didExceedMinimumWaitTime()) {
             this.$loadingIndicator.hide();
@@ -196,7 +197,10 @@ export default class LoadingView {
      */
     complete() {
         this.$loadingIndicator.hide();
-        this.$element.fadeOut(1000);
-        this.$element.css('pointerEvents', 'none');
+
+        global.setTimeout(() => {
+            this.$element.fadeOut(1000);
+            this.$element.css('pointerEvents', 'none');
+        }, 1500);
     }
 }

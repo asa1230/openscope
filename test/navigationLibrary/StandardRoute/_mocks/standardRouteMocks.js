@@ -4,6 +4,7 @@ export const STAR_LIST_MOCK = {
     'GRNPA1': {
         'icao': 'GRNPA1',
         'name': 'Grandpa One',
+        'suffix': {'01L': '1A', '01R': '1B', '07L': '2A', '07R': '2B', '19L': '3A', '19R': '3B', '25L': '4A', '25R': '4B'},
         'entryPoints': {
             'BETHL': ['BETHL', ['HOLDM', 'A270']],
             'BCE':   ['BCE'],
@@ -12,7 +13,7 @@ export const STAR_LIST_MOCK = {
         },
         'body': [['KSINO', 'A170'], ['LUXOR', 'A120|S250'], ['GRNPA', 'A110'], ['DUBLX', 'A90'], ['FRAWG', 'A80|S210'], 'TRROP', 'LEMNZ'],
         'rwy': {
-            '01L': [],
+            '01L': ['THREEVE'],
             '01R': [],
             '07L': [],
             '07R': [],
@@ -20,7 +21,8 @@ export const STAR_LIST_MOCK = {
             '19R': [],
             '25L': [],
             '25R': []
-        }
+        },
+        "draw": [[]]
     },
     'KEPEC3': {
         'icao': 'KEPEC3',
@@ -39,7 +41,8 @@ export const STAR_LIST_MOCK = {
             '19R': [],
             '25L': [],
             '25R': []
-        }
+        },
+        "draw": [[]]
     },
     'SUNST3': {
         'icao': 'SUNST3',
@@ -58,7 +61,8 @@ export const STAR_LIST_MOCK = {
             '19R': [],
             '25L': [],
             '25R': []
-        }
+        },
+        "draw": [[]]
     },
     'TYSSN4': {
         'icao': 'TYSSN4',
@@ -79,7 +83,57 @@ export const STAR_LIST_MOCK = {
             '19R': [],
             '25L': [],
             '25R': []
-        }
+        },
+        "draw": [[]]
+    }
+};
+
+export const STAR_LIST_WITH_INVALID_DRAW_SEGMENT_MOCK = {
+    'GRNPA1': {
+        'icao': 'GRNPA1',
+        'name': 'Grandpa One',
+        'suffix': {'01L': '1A', '01R': '1B', '07L': '2A', '07R': '2B', '19L': '3A', '19R': '3B', '25L': '4A', '25R': '4B'},
+        'entryPoints': {
+            'BETHL': ['BETHL', ['HOLDM', 'A270']],
+            'BCE':   ['BCE'],
+            'DVC':   ['DVC', 'BETHL', ['HOLDM', 'A270']],
+            'MLF':   ['MLF']
+        },
+        'body': [['KSINO', 'A170'], ['LUXOR', 'A120|S250'], ['GRNPA', 'A110'], ['DUBLX', 'A90'], ['FRAWG', 'A80|S210'], 'TRROP', 'LEMNZ'],
+        'rwy': {
+            '01L': ['THREEVE'],
+            '01R': [],
+            '07L': [],
+            '07R': [],
+            '19L': [],
+            '19R': [],
+            '25L': [],
+            '25R': []
+        },
+        "draw": [
+            ['BETHL', 'HOLDM', 'KSINO', 'LUXOR', 'GRNPA', 'DUBLX', 'FRAWG', 'TRROP', 'LEMNZ'],
+            ['BCE', 'KSINO', 'LUXOR', 'GRNPA', 'DUBLX', 'FRAWG', 'TRROP', 'LEMNZ'],
+        ]
+    },
+    'SUNST3': {
+        'icao': 'SUNST3',
+        'name': 'Sunset Three',
+        'entryPoints': {
+            'BTY':   ['BTY'],
+            'TACUS': ['TACUS', 'TUMBE']
+        },
+        'body': [['MYCAL', 'A240'], ['FUZZY', 'A160|S250'], 'TRAGR', ['IPUMY', 'A110|S230'], ['NIPZO', 'A90'], ['SUNST', 'A80|S210'], ['KIMME', 'A80|S210'], ['CHIPZ', 'A80|S170'], 'POKRR', 'PRINO'],
+        'rwy': {
+            '01L': [],
+            '01R': [],
+            '07L': [],
+            '07R': [],
+            '19L': [],
+            '19R': [],
+            '25L': [],
+            '25R': []
+        },
+        "draw": []
     }
 };
 
@@ -92,7 +146,45 @@ export const STAR_WITHOUT_RWY = {
         'DVC':   ['DVC', 'BETHL', ['HOLDM', 'A270']],
         'MLF':   ['MLF']
     },
-    'body': [['KSINO', 'A170'], ['LUXOR', 'A120|S250'], ['GRNPA', 'A110'], ['DUBLX', 'A90'], ['FRAWG', 'A80|S210'], 'TRROP', 'LEMNZ']
+    'body': [['KSINO', 'A170'], ['LUXOR', 'A120|S250'], ['GRNPA', 'A110'], ['DUBLX', 'A90'], ['FRAWG', 'A80|S210'], 'TRROP', 'LEMNZ'],
+    'draw': [[]]
+};
+
+export const STAR_WITH_SUFFIX = {
+    'icao': 'GRNPA1',
+    'name': 'Grandpa One',
+    'suffix': {'01L': '1A', '01R': '1B', '07L': '2A', '07R': '2B', '19L': '3A', '19R': '3B', '25L': '4A', '25R': '4B'},
+    'entryPoints': {
+        'BETHL': ['BETHL', ['HOLDM', 'A270']],
+        'BCE':   ['BCE'],
+        'DVC':   ['DVC', 'BETHL', ['HOLDM', 'A270']],
+        'MLF':   ['MLF']
+    },
+    'body': [['KSINO', 'A170'], ['LUXOR', 'A120|S250'], ['GRNPA', 'A110'], ['DUBLX', 'A90'], ['FRAWG', 'A80|S210'], 'TRROP', 'LEMNZ'],
+    'rwy': {
+        '01L': [],
+        '01R': [],
+        '07L': [],
+        '07R': [],
+        '19L': [],
+        '19R': [],
+        '25L': [],
+        '25R': []
+    },
+    'draw': [[]]
+};
+
+export const STAR_WITH_ONLY_VECTORS = {
+    'icao': 'GRNPA1',
+    'name': 'Grandpa One',
+    'entryPoints': {
+        'BETHL': ['BETHL'],
+        'BCE':   ['BCE'],
+        'DVC':   ['DVC'],
+        'MLF':   ['MLF']
+    },
+    'body': ['#130'],
+    'draw': [[]]
 };
 
 export const SID_LIST_MOCK = {
@@ -127,6 +219,7 @@ export const SID_LIST_MOCK = {
     'COWBY6': {
         'icao': 'COWBY6',
         'name': 'Cowboy Six',
+        'suffix': {'01L': '1A', '01R': '1B', '07L': '2A', '07R': '2B', '19L': '3A', '19R': '3B', '25L': '4A', '25R': '4B'},
         'rwy': {
             '01L': ['_NAPSE068', 'NAPSE', ['RIOOS', 'A130+'], 'COMPS'],
             '01R': ['_NAPSE068', 'NAPSE', ['RIOOS', 'A130+'], 'COMPS'],

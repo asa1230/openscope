@@ -55,7 +55,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'eddf',
-            level: 'medium',
+            level: 'hard',
             name: 'Frankfurt Airport',
             premium: false,
             wip: true
@@ -132,7 +132,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'eidw',
-            level: 'easy',
+            level: 'medium',
             name: 'Dublin Airport',
             premium: false,
             wip: false
@@ -188,7 +188,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         },
         {
             icao: 'kbos',
-            level: 'medium',
+            level: 'hard',
             name: 'Boston Logan International Airport',
             premium: false,
             wip: false
@@ -216,15 +216,9 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         },
         {
             icao: 'kelp',
-            level: 'beginner',
+            level: 'easy',
             name: 'El Paso International Airport',
             premium: false,
-            wip: false
-        },
-        {
-            icao: 'kjax',
-            level: 'easy',
-            name: 'Jacksonville International Airport',
             wip: false
         },
         // {
@@ -234,6 +228,13 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         //     premium: false,
         //     wip: true
         // },
+        {
+            icao: 'kjax',
+            level: 'easy',
+            name: 'Jacksonville International Airport',
+            premium: false,
+            wip: false
+        },
         // {
         //     icao: 'kjfk',
         //     level: 'hard',
@@ -285,7 +286,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'kpdx',
-            level: 'beginner',
+            level: 'easy',
             name: 'Portland International Airport',
             premium: false,
             wip: false
@@ -299,14 +300,14 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         },
         {
             icao: 'kpvd',
-            level: 'easy',
+            level: 'beginner',
             name: 'Theodore Francis Green Memorial State Airport',
             premium: false,
             wip: false
         },
         {
             icao: 'ksdf',
-            level: 'medium',
+            level: 'easy',
             name: 'Louisville International Airport',
             premium: false,
             wip: false
@@ -320,7 +321,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'ksea',
-            level: 'medium',
+            level: 'hard',
             name: 'Seattle-Tacoma International Airport',
             premium: false,
             wip: false
@@ -348,7 +349,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         },
         {
             icao: 'ktus',
-            level: 'easy',
+            level: 'beginner',
             name: 'Tucson International Airport',
             premium: false,
             wip: false
@@ -376,7 +377,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'mdsd',
-            level: 'easy',
+            level: 'beginner',
             name: 'Aeropuerto Internacional Las Américas',
             premium: false,
             wip: false
@@ -411,7 +412,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         // },
         {
             icao: 'panc',
-            level: 'medium',
+            level: 'easy',
             name: 'Ted Stevens Anchorage International Airport',
             premium: false,
             wip: false

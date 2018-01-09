@@ -1,7 +1,7 @@
 ## 5.8.0 (January 1, 2018)
 ---
 ### New Features
-- Add Leeds Bradford Airport (England, United Kingdom) [#265](https://github.com/openscope/openscope/pull/266)
+- Add Leeds Bradford Airport (England, United Kingdom) [#265](https://github.com/openscope/openscope/issues/265)
 
 
 

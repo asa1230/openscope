@@ -2,7 +2,7 @@
 ---
 ### New Features
 - Add Ottawa Macdonald–Cartier International Airport (Canada) [#108](https://github.com/openscope/openscope/issues/108)
-
+- Overhaul of Ronald Reagan Washington National Airport (DofC, USA) [#216](https://github.com/openscope/openscope/issues/216)
 
 
 

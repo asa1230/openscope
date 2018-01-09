@@ -119,7 +119,7 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         {
             icao: 'egnm',
             level: 'beginner',
-            name: 'Leeds Bradford International Airport',
+            name: 'Leeds Bradford Airport',
             premium: false,
             wip: false
         },

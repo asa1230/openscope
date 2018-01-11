@@ -10,6 +10,9 @@ import _mapValues from 'lodash/mapValues';
 export const CLASSNAMES = {
     ACTIVE: 'active',
     AIRCRAFT: 'aircraft',
+    AIRPORT_LIST: 'airport-list',
+    AIRPORT_LIST_ITEM: 'airport-list-item',
+    AIRPORT_LIST_ITEM_IS_ACTIVE: 'mix-airport-list-item_isActive',
     ALL_SET: 'allSet',
     ALTITUDE: 'altitude',
     ARRIVAL: 'arrival',
@@ -23,12 +26,14 @@ export const CLASSNAMES = {
     HIDDEN: 'hidden',
     HOLD: 'hold',
     LEFT: 'left',
+    LOADING_VIEW: 'js-loadingView',
     LOOKING_GOOD: 'lookingGood',
     MESSAGE: 'message',
     NEGATIVE: 'negative',
     NEXT: 'next',
     NOT_SELECTABLE: 'notSelectable',
     OPEN: 'open',
+    OPTIONS_DIALOG: 'option-dialog',
     PAUSED: 'paused',
     PAUSE_TOGGLE: 'pause-toggle',
     PREV: 'prev',
@@ -39,6 +44,10 @@ export const CLASSNAMES = {
     SPEED_2: 'speed-2',
     SPEED_5: 'speed-5',
     STRIP: 'strip',
+    STRIP_VIEW: 'js-stripView',
+    STRIP_VIEW_IS_HIDDEN: 'mix-stripView_isHidden',
+    STRIP_VIEW_LIST: 'js-stripView-list',
+    STRIP_VIEW_TRIGGER: 'js-stripView-trigger',
     SWITCH_AIRPORT: 'switch-airport',
     TOGGLE_LABELS: 'toggle-labels',
     TOGGLE_RESTRICTED_AREAS: 'toggle-restricted-areas',
@@ -57,7 +66,6 @@ export const CLASSNAMES = {
  * @final
  */
 export const IDS = {
-    AIRPORT_LIST: 'airport-list',
     AIRPORT_LIST_NOTES: 'airport-list-notes',
     AIRPORT_SWITCH: 'airport-switch',
     CANVASES: 'canvases',
@@ -67,13 +75,11 @@ export const IDS = {
     LOADING_INDICATOR: 'loadingIndicator',
     LOG: 'log',
     NAVAIDS_CANVAS: 'navaids-canvas',
-    OPTIONS_DIALOG: 'options-dialog',
     PAUSED: 'paused',
     TOGGLE_OPTIONS: 'toggle-options',
     TUTORIAL: 'tutorial',
     SCORE: 'score',
-    SIDEBAR: 'sidebar',
-    STRIPS: 'strips'
+    SIDEBAR: 'sidebar'
 };
 
 /**

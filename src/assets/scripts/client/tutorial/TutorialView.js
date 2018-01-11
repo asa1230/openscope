@@ -1,10 +1,13 @@
 /* eslint-disable max-len, no-undef, indent */
 import $ from 'jquery';
 import _has from 'lodash/has';
+import AirportController from '../airport/AirportController';
+import EventBus from '../lib/EventBus';
+import TimeKeeper from '../engine/TimeKeeper';
 import TutorialStep from './TutorialStep';
 import { round, clamp } from '../math/core';
-import { time } from '../utilities/timeHelpers';
 import { heading_to_string } from '../utilities/unitConverters';
+import { EVENT } from '../constants/eventNames';
 import { STORAGE_KEY } from '../constants/storageKeys';
 import { SELECTORS } from '../constants/selectors';
 
@@ -26,6 +29,14 @@ export default class TutorialView {
      * @constructor
      */
     constructor($element = null) {
+        /**
+         * @property EventBus
+         * @type {EventBus}
+         * @default EventBus
+         * @private
+         */
+        this._eventBus = EventBus;
+
         /**
          * Root DOM element
          *
@@ -126,6 +137,8 @@ export default class TutorialView {
      * @chainable
      */
     enable() {
+        this._eventBus.on(EVENT.TOGGLE_TUTORIAL, this.tutorial_toggle);
+
         this.$tutorialPrevious.on('click', (event) => this.tutorial_prev(event));
         this.$tutorialNext.on('click', (event) => this.tutorial_next(event));
 
@@ -140,6 +153,8 @@ export default class TutorialView {
      * @chainable
      */
     disable() {
+        this._eventBus.off(EVENT.TOGGLE_TUTORIAL, this.tutorial_toggle);
+
         this.$tutorialPrevious.off('click', (event) => this.tutorial_prev(event));
         this.$tutorialNext.off('click', (event) => this.tutorial_next(event));
 
@@ -178,6 +193,7 @@ export default class TutorialView {
         prop.tutorial.open = false;
 
         const tutorial_position = [0.1, 0.85];
+        const departureAircraft = prop.aircraft.list.filter((aircraftModel) => aircraftModel.isDeparture())[0];
 
         this.tutorial_step({
             title: 'Welcome!',
@@ -190,19 +206,28 @@ export default class TutorialView {
             position: tutorial_position
         });
 
+	    this.tutorial_step({
+		    title: 'Moving Around',
+		    text: ['To move the middle of the radar screen, use the right click button and drag.',
+		          'Zoom in and out by scrolling, and press the middle mouse button or scroll wheel to reset the zoom.',
+		          'To select an aircraft when it is in flight, simply left-click.'
+		      ].join(' '),
+	    	position: tutorial_position
+	    });
+
         this.tutorial_step({
             title: 'Departing aircraft',
             text: ['Let&rsquo;s route some planes out of here. On the right side of the screen, there',
                    'should be a strip with a blue bar on the left, meaning the strip represents a departing aircraft.',
                    'Click the first one ({CALLSIGN}). The aircraft&rsquo;s callsign will appear in the command entry box',
-                   'and the strip will move to the left and change color. This means that the aircraft is selected.'
+                   'and the strip will move slightly to the side. This means that the aircraft is selected.'
                ].join(' '),
             parse: (t) => {
                 if (prop.aircraft.list.length <= 0) {
                     return t;
                 }
 
-                return t.replace('{CALLSIGN}', prop.aircraft.list[0].callsign);
+                return t.replace('{CALLSIGN}', departureAircraft.callsign);
             },
             side: 'left',
             position: tutorial_position
@@ -220,7 +245,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{RUNWAY}', prop.aircraft.list[0].fms.currentRunwayName);
+                return t.replace('{RUNWAY}', departureAircraft.fms.currentRunwayName);
             },
             side: 'left',
             position: tutorial_position
@@ -237,7 +262,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{RUNWAY}', prop.aircraft.list[0].fms.currentRunwayName);
+                return t.replace('{RUNWAY}', departureAircraft.fms.currentRunwayName);
             },
             side: 'left',
             position: tutorial_position
@@ -255,7 +280,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{RUNWAY}', prop.aircraft.list[0].fms.currentRunwayName);
+                return t.replace('{RUNWAY}', departureAircraft.fms.currentRunwayName);
             },
             side: 'left',
             position: tutorial_position
@@ -272,7 +297,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{RUNWAY}', prop.aircraft.list[0].fms.currentRunwayName);
+                return t.replace('{RUNWAY}', departureAircraft.fms.currentRunwayName);
             },
             side: 'left',
             position: tutorial_position
@@ -289,7 +314,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{MODEL}', prop.aircraft.list[0].model.icao).replace('{MODELNAME}', prop.aircraft.list[0].model.name);
+                return t.replace('{MODEL}', departureAircraft.model.icao).replace('{MODELNAME}', departureAircraft.model.name);
             },
             side: 'left',
             position: tutorial_position
@@ -309,9 +334,9 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{CALLSIGN}', prop.aircraft.list[0].callsign)
-                        .replace('{INIT_ALT}', window.airportController.airport_get().initial_alt)
-                        .replace('{SID_NAME}', prop.aircraft.list[0].destination);
+                return t.replace('{CALLSIGN}', departureAircraft.callsign)
+                        .replace('{INIT_ALT}', AirportController.airport_get().initial_alt)
+                        .replace('{SID_NAME}', departureAircraft.destination);
             },
             side: 'left',
             position: tutorial_position
@@ -329,7 +354,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{CALLSIGN}', prop.aircraft.list[0].callsign);
+                return t.replace('{CALLSIGN}', departureAircraft.callsign);
             },
             side: 'left',
             position: tutorial_position
@@ -348,7 +373,7 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace('{CALLSIGN}', prop.aircraft.list[0].callsign);
+                return t.replace('{CALLSIGN}', departureAircraft.callsign);
             },
             side: 'left',
             position: tutorial_position
@@ -379,17 +404,33 @@ export default class TutorialView {
                     return t;
                 }
 
-                return t.replace(/{ANGLE}/g, heading_to_string(prop.aircraft.list[0].destination));
+                return t.replace(/{ANGLE}/g, heading_to_string(departureAircraft.destination));
             },
             side: 'left',
             position: tutorial_position
         });
 
         this.tutorial_step({
-            title: 'Fixes',
+            title: 'Route',
             text: ['Instead of guiding each aircraft based on heading, you can also clear each aircraft to proceed to a fix or navaid (shown on the map',
-                   'as a small triangle). Just use the command &lsquo;fix&rsquo; and the name of a fix, and the aircraft will fly to it. Upon passing the',
+                   'as a small triangle). Just use the command &lsquo;route&rsquo; and the name of a fix, and the aircraft will fly to it. Upon passing the',
                    'fix, it will continue flying along its present heading.'
+               ].join(' '),
+            parse: (t) => {
+                if (prop.aircraft.list.length <= 0) {
+                    return t;
+                }
+
+                return t.replace('{CALLSIGN}', departureAircraft.callsign);
+            },
+            side: 'left',
+            position: tutorial_position
+        });
+
+        this.tutorial_step({
+            title: 'Proceed Direct',
+            text: ['The proceed direct command &lsquo;pd&rsquo; instructs an aircraft to go directly to a waypoint in the flight plan. For example, if an',
+                   'aircraft is flying to fixes [A, B, C], issuing the command &lsquo;pd B&rsquo; will cause the aircraft to go to B, then C.'
                ].join(' '),
             parse: (t) => {
                 if (prop.aircraft.list.length <= 0) {
@@ -398,18 +439,6 @@ export default class TutorialView {
 
                 return t.replace('{CALLSIGN}', prop.aircraft.list[0].callsign);
             },
-            side: 'left',
-            position: tutorial_position
-        });
-
-        this.tutorial_step({
-            title: 'Shortcuts',
-            text: ['You can give an aircraft a shortcut in a chain of fixes through use of the &lsquo;direct&rsquo;',
-                   'command (&lsquo;dct&rsquo;). Also, you can add more fixes to the end of that list with the',
-                   '&lsquo;proceed&rsquo; (&lsquo;pr&rsquo;) command. This is useful with overflights, and while you can have',
-                   'departing aircraft use these commands, it is probably easier to assign them a SID if one is available at your airport.'
-               ].join(' '),
-            parse: (v) => v,
             side: 'left',
             position: tutorial_position
         });
@@ -467,18 +496,7 @@ export default class TutorialView {
             text: ['You may choose to enter one command at a time, but air traffic controllers usually do multiple. Particularly in approach clearances,',
                    'they follow an acronym &ldquo;PTAC&rdquo; for the four elements of an approach clearance, the &lsquo;T&rsquo; and &lsquo;C&rsquo; of which',
                    'stand for &lsquo;Turn&rsquo; and &lsquo;Clearance&rsquo;, both of which we entered separately in this tutorial. Though longer, it is both ',
-                   'easier and more real-world accurate to enter them together, like this: &lsquo;fh250 i 28r&rsquo;.'
-               ].join(' '),
-            parse: (v) => v,
-            side: 'left',
-            position: tutorial_position
-        });
-
-        this.tutorial_step({
-            title: 'Aborting landings',
-            text: ['If the aircraft is established on the ILS, it should be able to land on the runway. However, say there&rsquo;s another',
-                   'aircraft that&rsquo;s planning to take off from the same runway. To abort the landing, use the command &lsquo;abort&rsquo;.',
-                   '(If the aircraft is navigating to a fix, the &lsquo;abort&rsquo; command will clear the fix instead.)'
+                   'easier and more real-world accurate to enter them together, like this: &lsquo;fh 250 i 28r&rsquo;.'
                ].join(' '),
             parse: (v) => v,
             side: 'left',
@@ -491,6 +509,17 @@ export default class TutorialView {
                    'the wind is blowing toward. If it&rsquo;s pointing straight down, the wind is blowing from the North',
                    'to the South. Aircraft must be assigned to different runways such that they always take off and land into the wind, unless the',
                    'wind is less than 5 knots.'
+               ].join(' '),
+            parse: (v) => v,
+            side: 'left',
+            position: tutorial_position
+        });
+
+        this.tutorial_step({
+            title: 'Scope Commands',
+            text: ['There are also various commands that can be entered into your "scope" which deal with moving ' +
+                'aircraft data blocks (labels), transferring control of aircraft, etc. To toggle between aircraft ' +
+                'commands and scope commands, press the tab key.'
                ].join(' '),
             parse: (v) => v,
             side: 'left',
@@ -514,7 +543,8 @@ export default class TutorialView {
             title: 'Good job!',
             text: ['If you&rsquo;ve gone through this entire tutorial, you should do pretty well with the pressure.',
                    'In the TRACON, minimum separation is 3 miles laterally or 1000 feet vertically. Keep them separated,',
-                   'keep them moving, and you\'ll be a controller in no time!'
+                   'keep them moving, and you\'ll be a controller in no time!',
+                   'A full list of commands can be found <a title="Command Reference | Openscope Wiki" href="https://github.com/openscope/openscope/wiki/Command-Reference">here</a>.'
                ].join(' '),
             parse: (v) => v,
             side: 'left',
@@ -523,17 +553,22 @@ export default class TutorialView {
     }
 
     /**
+     * Open/close the tutorial modal
+     *
+     * This method may be triggered via `EventBus.trigger()`
+     *
      * @for TutorialView
      * @method tutorial_toggle
      */
-    tutorial_toggle() {
+    tutorial_toggle = () => {
         if (prop.tutorial.open) {
             this.tutorial_close();
-        } else {
-            this.tutorial_open();
-        }
-    }
 
+            return;
+        }
+
+        this.tutorial_open();
+    };
 
     /**
      * @method tutorial_get
@@ -626,7 +661,7 @@ export default class TutorialView {
             this.tutorial_open();
         }
 
-        localStorage[STORAGE_KEY.FIRST_RUN_TIME] = time();
+        localStorage[STORAGE_KEY.FIRST_RUN_TIME] = TimeKeeper.gameTimeInSeconds;
     }
 
     /**

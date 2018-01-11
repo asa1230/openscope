@@ -18,6 +18,8 @@
         "angle": 60,
         "speed": 8
     },
+    "arrivalRunway": "06",
+    "departureRunway": "06",
     "airspace": [
         {
             "floor": 0,
@@ -390,7 +392,6 @@
                 ["LOT",2],
                 ["TAP",2],
                 ["EIN",2],
-                ["BER",2],
                 ["IBE",2],
                 ["SAS",1],
                 ["EIN",1],
@@ -420,7 +421,6 @@
                 ["KLM",2],
                 ["KLC",2],
                 ["TAP",2],
-                ["BER",2],
                 ["IBE",2],
                 ["EIN",1]
             ]
@@ -492,7 +492,6 @@
                 ["KLC",2],
                 ["SAS",2],
                 ["LOT",2],
-                ["BER",2],
                 ["SAS",1],
                 ["EIN",1],
                 ["CES",1],

@@ -1,13 +1,15 @@
 # Tools
 
-#### Node
-You will need to have [NodeJS](https://nodejs.org/) installed to run this project locally.
+## Local Dependencies
+_If you haven't done so already, please install the following:_
+- [Node](https://nodejs.org/)
+- [Gulp CLI](https://www.npmjs.com/package/gulp-cli) via `npm` with `npm install -g gulp-cli`
 
 _If you are a Windows user and are having issues running `gulp` commands, please see here: [http://stackoverflow.com/questions/24027551/gulp-command-not-found-error-after-installing-gulp](http://stackoverflow.com/questions/24027551/gulp-command-not-found-error-after-installing-gulp)_
 
 #### Project Installation
 
-After you have node installed, navigate to the project folder and run `npm install && npm run build`.  This will install the project dependencies and run the build tasks for the css and javascript.
+After you have node installed, in a terminal window (command line) navigate to the project folder and run `npm install && npm run build`.  This will install the project dependencies and run the build tasks for the css and javascript.
 
 #### Folder Structure
 Folders are organized with the following main folders:
@@ -18,7 +20,6 @@ Folders are organized with the following main folders:
 - src
 - test
 - tools
-index.html
 Gulpfile.js
 ```
 
@@ -51,7 +52,7 @@ This is the entry point for all `gulp` tasks.  There should never be a process d
 #### NPM Commands
 
 Available `npm` commands:
-* `npm run start` Will spool up a small web server using the `gulp-connect` package.  Once the server successfully starts, you can view the app at localhost:3003 in your web browser.
+* `npm run start` Will spool up an [Express](https://expressjs.com/) server.  Once the server starts successfully, you can view the app at `localhost:3003` in your web browser.
 
 * `npm run build` _alias for_ `gulp build && npm run test`.
 
@@ -69,4 +70,4 @@ All the `gulp` commands defined in the Gulpfile are combined tasks, meaning they
 
 * `gulp dist` Everything `gulp build` does plus run `eslint` and output a per-file report of errors and warnings.
 
-* gulp watch Watches for changes for css and javascript files and runs an associated compilation task if a change is detected.
+* `gulp watch` Watches for changes for css and javascript files and runs an associated compilation task if a change is detected.

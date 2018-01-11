@@ -18,6 +18,8 @@
         "angle": 230,
         "speed": 5
     },
+    "arrivalRunway": "25L",
+    "departureRunway": "25L",
     "airspace": [
         {
             "floor": 0,
@@ -284,7 +286,10 @@
                 "07R": ["DF140", ["DF146", "A20+"], "ODAGA", "KUSOM", "GUBAX"],
                 "18":  ["DF197", ["DF156", "S220-"], "DF164", "KUPIP", "MASIR"]
             },
-            "body": ["RAVKI", "DITAM", "OBOKA", "BIBTI"],
+            "body": ["RAVKI", "DITAM", "OBOKA"],
+            "exitPoints": {
+                "BIBTI": ["BIBTI"]
+            },
             "draw": [["DF172", "PABVI", "SIVDO", "KUPIP", "MASIR", "RAVKI"], ["DF197", "DF156", "DF164", "KUPIP"], ["DF235", "DF171"], ["DF140", "DF146"], ["DF146", "ODAGA", "KUSOM", "GUBAX", "RAVKI", "DITAM", "OBOKA", "BIBTI"]]
         },
         "MARUN": {
@@ -298,7 +303,10 @@
                 "07R": ["DF140", ["DF146", "A20+"], "ODAGA", "TESGA", "ALIDI"],
                 "18":  ["DF197", ["DF156", "S220-"], "DF164", "KUPIP", "TABUM", "LIKSI", "LORPA"]
             },
-            "body": ["MARUN"],
+            "body": [],
+            "exitPoints": {
+                "MARUN": ["MARUN"]
+            },
             "draw": [["DF234", "DF170", "DF180", "ROXAP", "LISKU", "TABUM", "LIKSI", "LORPA", "MARUN"], ["KUPIP", "TABUM"], ["ODAGA", "TESGA", "ALIDI", "MARUN"]]
         },
         "TOBAK": {
@@ -312,7 +320,10 @@
                 "07R": ["DF149", "MTR"],
                 "18":  ["DF197", ["DF156", "S220-"], "DF164", "KUPIP", "TABUM", "TESGA"]
             },
-            "body": ["TOBAK"],
+            "body": [],
+            "exitPoints": {
+                "TOBAK": ["TOBAK"]
+            },
             "draw": [["TABUM", "TESGA", "TOBAK"], ["DF149", "MTR", "TOBAK"]]
         },
         "SOBRA": {
@@ -326,7 +337,10 @@
                 "07R": ["DF145", ["DF154", "A25+|S220-"], ["DF160", "A4000"], "DF198", ["ROSIG", "A90+"]],
                 "18":  [["DF160", "A40-|S220-"], "DF198", ["ROSIG", "A90+"]]
             },
-            "body": [["DONAB", "A110+"], "SOBRA"],
+            "body": [["DONAB", "A110+"]],
+            "exitPoints": {
+                "SOBRA": ["SOBRA"]
+            },
             "draw": [["DF134", "DF141", "DF163"], ["DF135", "DF142"], ["DF164", "DF201"], ["DF144", "DF154"], ["DF145", "DF154", "DF160", "DF198", "ROSIG", "DONAB", "SOBRA"]]
         },
         "ANEKI": {
@@ -340,7 +354,10 @@
                 "07R": ["DF145", ["DF154", "A25+|S220-"], "DF160"],
                 "18":  []
             },
-            "body": ["RID", "ANEKI"],
+            "body": ["RID"],
+            "exitPoints": {
+                "ANEKI": ["ANEKI"]
+            },
             "draw": [["DF143", "DF137", "RID", "ANEKI"]]
         },
         "DKB": {
@@ -354,7 +371,10 @@
                 "07R": ["DF152", ["DF150", "S220-"], "DF153"],
                 "18":  [["RID", "S220-"]]
             },
-            "body": ["AMTIX", "AKONI", "DKB"],
+            "body": ["AMTIX", "AKONI"],
+            "exitPoints": {
+                "DKB": ["DKB"]
+            },
             "draw": [["RID", "AMTIX"], ["DF152", "DF150", "DF153", "AMTIX"], ["DF137", "DF159", "AMTIX", "AKONI", "DKB"]]
         },
         "NOMBO": {
@@ -368,7 +388,10 @@
                 "07R": ["DF152", ["DF150", "S220-"], "DF153"],
                 "18":  [["RID", "S220-"]]
             },
-            "body": ["AMTIX", "AKONI", "HAREM", "LAMPU", "GEBNO", "NOMBO"],
+            "body": ["AMTIX", "AKONI", "HAREM", "LAMPU", "GEBNO"],
+            "exitPoints": {
+                "NOMBO": ["NOMBO"]
+            },
             "draw": [["HAREM", "LAMPU", "GEBNO", "NOMBO"]]
         },
         "SULUS": {
@@ -382,7 +405,10 @@
                 "07R": ["DF149", "DF151", "DF169", "AGOLO", "OKTUM", "KOMIB"],
                 "18":  [["RID", "S220-"], "AMTIX", "AKONI", "GIBSA", "WUR"]
             },
-            "body": ["SULUS"],
+            "body": [],
+            "exitPoints": {
+                "SULUS": ["SULUS"]
+            },
             "draw": [["AKONI", "GIBSA", "WUR", "SULUS"], ["DF149", "DF151", "DF169", "AGOLO", "OKTUM", "KOMIB", "SULUS"]]
         }
     },
@@ -415,7 +441,8 @@
                 "07L": [],
                 "07C": [],
                 "07R": []
-            }
+            },
+            "draw": [[]]
         },
         "UNOKO25S": {
             "icao": "UNOKO25S",
@@ -445,7 +472,8 @@
                 "25L": [],
                 "25C": [],
                 "25R": []
-            }
+            },
+            "draw": [[]]
         },
         "ROLIS7S": {
             "icao": "ROLIS7S",
@@ -475,7 +503,9 @@
                 "07L": [],
                 "07C": [],
                 "07R": []
-            }
+            },
+            "draw": [[]],
+            "draw": [[]]
         },
         "ROLIS25S": {
             "icao": "ROLIS25S",
@@ -505,7 +535,8 @@
                 "25L": [],
                 "25C": [],
                 "25R": []
-            }
+            },
+            "draw": [[]]
         },
         "KERAX7S": {
             "icao": "KERAX7S",
@@ -519,7 +550,8 @@
                 "07L": [["ROBSA", "A40"]],
                 "07C": [["LOMPO", "A40"]],
                 "07R": []
-            }
+            },
+            "draw": [[]]
         },
         "KERAX7N": {
             "icao": "KERAX7N",
@@ -561,7 +593,8 @@
                 "25L": [],
                 "25C": [],
                 "25R": []
-            }
+            },
+            "draw": [[]]
         },
         "PSA7S": {
             "icao": "PSA7S",
@@ -575,7 +608,8 @@
                 "07L": [["ROBSA", "A40"]],
                 "07C": [["LOMPO", "A40"]],
                 "07R": []
-            }
+            },
+            "draw": [[]]
         },
         "PSA7N": {
             "icao": "PSA7N",
@@ -617,7 +651,8 @@
                 "25L": [],
                 "25C": [],
                 "25R": []
-            }
+            },
+            "draw": [[]]
         }
     },
     "spawnPatterns": [
@@ -634,7 +669,6 @@
                 ["cfg", 40],
                 ["dlh", 50],
                 ["baw", 5],
-                ["ber", 10],
                 ["ein", 3],
                 ["klc", 3],
                 ["tui", 25],
@@ -653,7 +687,6 @@
             "airlines": [
                 ["cfg", 40],
                 ["dlh", 50],
-                ["ber", 10],
                 ["dal", 8],
                 ["sas", 8],
                 ["tui", 25],
@@ -676,7 +709,6 @@
                 ["cfg", 40],
                 ["dlh", 50],
                 ["afl", 1],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -705,7 +737,6 @@
                 ["dlh", 50],
                 ["afr", 3],
                 ["aza", 3],
-                ["ber", 10],
                 ["ibe", 3],
                 ["thy", 3],
                 ["tam", 2],
@@ -732,7 +763,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -774,7 +804,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -816,7 +845,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -858,7 +886,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -900,7 +927,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -942,7 +968,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -984,7 +1009,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -1026,7 +1050,6 @@
                 ["afr", 3],
                 ["aza", 3],
                 ["baw", 5],
-                ["ber", 10],
                 ["ces", 2],
                 ["cpa", 2],
                 ["csn", 3],
@@ -1051,5 +1074,8 @@
                 ["cca/long", 4]
             ]
         }
-    ]
+    ],
+    "maps": {
+        "base": []
+    }
 }

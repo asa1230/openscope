@@ -18,6 +18,8 @@
         "angle": 50,
         "speed": 10
     },
+    "arrivalRunway": "9L",
+    "departureRunway": "9L",
     "fixes": {
         "ANDOR" : ["S23d45m43.20", "W047d23m04.80"],
         "ANSUG" : ["S23d16m25.75", "W046d16m30.86"],
@@ -210,7 +212,7 @@
             "origin": "sbgr",
             "destination": "",
             "category": "departure",
-            "route": "SBGR.ROMIB.DORLU",
+            "route": "SBGR.CGO.RCL",
             "altitude": "",
             "speed": "",
             "method": "random",
@@ -345,5 +347,8 @@
                 ["FAB", 1]
             ]
         }
-    ]
+    ],
+    "maps": {
+        "base": []
+    }
 }

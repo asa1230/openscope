@@ -18,6 +18,8 @@
         "angle": 230,
         "speed": 19
     },
+    "arrivalRunway": "25",
+    "departureRunway": "25",
     "fixes": {
         "_RWY07": ["S54.84202", "W68.26044"],
         "_RWY25": ["S54d50m39.12", "W68d19m3.09"],
@@ -111,7 +113,8 @@
             "body": [["DABLI", "A140|S290"], ["EDPAN", "A100|S250"], ["WH213", "A80|S230"], ["WH214", "A65|S210"], ["AMVUK", "A65|S180"]],
             "rwy": {
                 "25": []
-            }
+            },
+            "draw": [[]]
         }
     },
     "spawnPatterns":[
@@ -119,7 +122,7 @@
             "origin": "sawh",
             "destination": "",
             "category": "departure",
-            "route": "SAWH.USU2A.GRA",
+            "route": "SAWH.USU2B.GRA",
             "altitude": "",
             "speed": "",
             "method": "random",
@@ -151,5 +154,8 @@
                 ["n/fastGA", 3]
             ]
         }
-    ]
+    ],
+    "maps": {
+        "base": []
+    }
 }

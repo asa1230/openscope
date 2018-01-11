@@ -1,10 +1,15 @@
+import _filter from 'lodash/filter';
 import _isNil from 'lodash/isNil';
+import _uniq from 'lodash/uniq';
 import StaticPositionModel from '../base/StaticPositionModel';
 import RouteModel from './Route/RouteModel';
 import FixCollection from './Fix/FixCollection';
 import StandardRouteCollection from './StandardRoute/StandardRouteCollection';
 import { degreesToRadians } from '../utilities/unitConverters';
-import { FLIGHT_PHASE } from '../constants/aircraftConstants';
+import {
+    FLIGHT_PHASE,
+    PROCEDURE_TYPE
+} from '../constants/aircraftConstants';
 
 /**
  *
@@ -96,11 +101,18 @@ export default class NavigationLibrary {
     init(airportJson) {
         const { fixes, sids, stars } = airportJson;
 
-        this._referencePosition = new StaticPositionModel(airportJson.position, null, degreesToRadians(airportJson.magnetic_north));
+        this._referencePosition = new StaticPositionModel(
+            airportJson.position,
+            null,
+            degreesToRadians(airportJson.magnetic_north)
+        );
 
         FixCollection.addItems(fixes, this._referencePosition);
-        this._sidCollection = new StandardRouteCollection(sids);
-        this._starCollection = new StandardRouteCollection(stars);
+
+        this._sidCollection = new StandardRouteCollection(sids, PROCEDURE_TYPE.SID);
+        this._starCollection = new StandardRouteCollection(stars, PROCEDURE_TYPE.STAR);
+
+        this.showConsoleWarningForUndefinedFixes();
     }
 
     /**
@@ -186,19 +198,6 @@ export default class NavigationLibrary {
     }
 
     /**
-     * Fascade Method
-     *
-     * @for NavigationLibrary
-     * @method findEntryAndBodyFixesForRoute
-     * @param routeName {string}
-     * @param entryFixName {string}
-     * @return {array<StandardRouteWaypointModel>}
-     */
-    findEntryAndBodyFixesForRoute(routeName, entryFixName) {
-        return this._starCollection.findEntryAndBodyFixesForRoute(routeName, entryFixName);
-    }
-
-    /**
      * Finds the collectionName a given `procedureId` belongs to.
      *
      * This is useful when trying to find a particular route without
@@ -238,8 +237,7 @@ export default class NavigationLibrary {
         const routeModel = new RouteModel(procedureRouteSegment);
         let standardRouteWaypointModelList;
 
-        // TODO: As amended, this may be an unsafe assumption. Needs to be reexaimed.
-        if (flightPhase === FLIGHT_PHASE.APRON) {
+        if (this.isGroundedFlightPhase(flightPhase)) {
             standardRouteWaypointModelList = this._sidCollection.generateFmsWaypointModelsForRoute(
                 routeModel.procedure,
                 runway,
@@ -275,4 +273,93 @@ export default class NavigationLibrary {
 
         return staticPositionModel;
     }
+
+    /**
+     * Determine if a procedureRouteString contains a suffix route
+     *
+     * Used from the `AircraftCommander` for branching logic that will
+     * enable updating of a runway for a particular suffix route
+     *
+     * @NavigationLibrary
+     * @method isSuffixRoute
+     * @param routeString {string}
+     * @param procedureType {string}
+     * @return {boolean}
+     */
+    isSuffixRoute(routeString, procedureType) {
+        let route;
+
+        switch (procedureType) {
+            case PROCEDURE_TYPE.SID:
+                route = this._sidCollection.findRouteByIcao(routeString);
+
+                break;
+            case PROCEDURE_TYPE.STAR: {
+                const { procedure } = new RouteModel(routeString);
+
+                route = this._starCollection.findRouteByIcao(procedure);
+
+                break;
+            }
+            default:
+                return false;
+        }
+
+        return typeof route !== 'undefined' && route.hasSuffix();
+    }
+
+    /**
+     * Encapsulates boolean logic used to determine if a `flightPhase`
+     * indicates an aircraft is still on the ground or en-route
+     *
+     * @for NavigationLibrary
+     * @method isGroundedFlightPhase
+     * @param flightPhase {string}
+     * @return {boolean}
+     */
+    isGroundedFlightPhase(flightPhase) {
+        return flightPhase === FLIGHT_PHASE.APRON ||
+            flightPhase === FLIGHT_PHASE.TAXI ||
+            flightPhase === FLIGHT_PHASE.WAITING;
+    }
+
+    /**
+     * Check all fixes used in procedures, and gather a list of any fixes that are
+     * not defined in the `fixes` section of the airport file, then sort and print
+     * that list to the console.
+     *
+     * @for NavigationLibrary
+     * @method showConsoleWarningForUndefinedFixes
+     */
+    showConsoleWarningForUndefinedFixes() {
+        const allFixNames = this._getAllFixNamesInUse();
+        const missingFixes = allFixNames.filter((fix) => !FixCollection.findFixByName(fix));
+
+        if (missingFixes.length < 1) {
+            return;
+        }
+
+        console.warn(`The following fixes have yet to be defined in the "fixes" section: ${missingFixes}`);
+    }
+
+    /**
+     * Gathers a unique, sorted list of all fixes used in all known procedures
+     *
+     * @for NavigationLibrary
+     * @method _getAllFixNamesInUse
+     * @return {array<string>} ['fixxa', 'fixxb', 'fixxc', ...]
+     * @private
+     */
+    _getAllFixNamesInUse() {
+        const allFixNames = [
+            ...this.sidCollection.getAllFixNamesInUse(),
+            ...this.starCollection.getAllFixNamesInUse()
+        ];
+        const uniqueFixNames = _uniq(allFixNames);
+        const allNonVectorFixes = _filter(uniqueFixNames, (fixName) =>
+            !RouteModel.isVectorRouteString(fixName));
+
+        return allNonVectorFixes.sort();
+    }
+
 }

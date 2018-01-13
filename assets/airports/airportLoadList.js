@@ -63,9 +63,9 @@ window.AIRPORT_LOAD_LIST = (function() { // eslint-disable-line wrap-iife
         {
             icao: 'eddf',
             level: 'medium',
-            name: 'Frankfurt Airport',
+            name: 'Flughafen Frankfurt am Main',
             premium: false,
-            wip: true
+            wip: false
         },
         {
             icao: 'eddh',

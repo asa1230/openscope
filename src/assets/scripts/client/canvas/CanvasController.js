@@ -721,7 +721,7 @@ export default class CanvasController {
                     const fixPosition = this._navigationLibrary.getFixRelativePosition(fixName);
 
                     if (!fixPosition) {
-                        console.warning(`Unable to draw line to '${fixList[k]}' because its position is not defined!`);
+                        console.warn(`Unable to draw line to '${fixList[k]}' because its position is not defined!`);
                     }
 
                     fixCanvasPosition = CanvasStageModel.translatePostionModelToRoundedCanvasPosition(fixPosition);
